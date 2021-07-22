@@ -34,112 +34,127 @@ class _RegisterState extends State<Register> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    height: 200,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage('assets/login-vector.png'))),
-                    )),
+                  height: 200,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage('assets/login-vector.png'),
+                      ),
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: Text(
                     'Register \nhere',
                     style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 50),
                   child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 20,
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          decoration: textInputDecoration.copyWith(
+                            hintText: 'Email',
                           ),
-                          TextFormField(
-                              decoration: textInputDecoration.copyWith(
-                                  hintText: 'Email'),
-                              onChanged: (val) {
-                                setState(() => email = val);
-                              },
-                              validator: (val) {
-                                return val!.isEmpty ? 'Enter an email' : null;
-                              },
-                              style: textStyle),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            decoration: textInputDecoration.copyWith(
-                                hintText: 'Password'),
-                            obscureText: true,
-                            onChanged: (val) {
-                              setState(() => password = val);
-                            },
-                            validator: (val) {
-                              return val!.length < 6
-                                  ? 'Enter a password 6+ chars long'
-                                  : null;
-                            },
-                            style: textStyle,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          RaisedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() => loading = true);
-                                dynamic result = await _authService
-                                    .registerUsingEmailAndPassword(
-                                        email, password);
-                                if (result == null) {
-                                  setState(() {
-                                    error =
-                                        'Failed to sign up using email/password.';
-                                    loading = false;
-                                  });
-                                }
+                          onChanged: (val) {
+                            setState(() => email = val);
+                          },
+                          validator: (val) {
+                            return val!.isEmpty ? 'Enter an email' : null;
+                          },
+                          style: textStyle,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          decoration: textInputDecoration.copyWith(
+                              hintText: 'Password'),
+                          obscureText: true,
+                          onChanged: (val) {
+                            setState(() => password = val);
+                          },
+                          validator: (val) {
+                            return val!.length < 6
+                                ? 'Enter a password 6+ chars long'
+                                : null;
+                          },
+                          style: textStyle,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        RaisedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() => loading = true);
+                              dynamic result = await _authService
+                                  .registerUsingEmailAndPassword(
+                                      email, password);
+                              if (result == null) {
+                                setState(() {
+                                  error =
+                                      'Failed to sign up using email/password.';
+                                  loading = false;
+                                });
                               }
-                            },
-                            color: Color(0xff99E2B4),
-                            child: Text(
-                              'Register',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600),
+                            }
+                          },
+                          color: Color(0xff99E2B4),
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                          SizedBox(
-                            height: 4,
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          error,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14,
                           ),
-                          Text(
-                            error,
-                            style: TextStyle(color: Colors.red, fontSize: 14),
-                          )
-                        ],
-                      )),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
                 Center(
-                    child: Text(
-                  'Already have an account?',
-                  style: textStyle,
-                )),
+                  child: Text(
+                    'Already have an account?',
+                    style: textStyle,
+                  ),
+                ),
                 Center(
                   child: RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
                           text: 'Sign in here',
                           style: linkStyle,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               widget.toggleView!();
-                            }),
-                    ]),
+                            },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

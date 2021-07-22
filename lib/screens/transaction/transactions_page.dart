@@ -124,13 +124,12 @@ class _TransactionsPageState extends State<TransactionsPage> {
                     ElevatedButton(
                       child: Text(
                         'SEE MORE',
-                        style: TextStyle(color: Colors.black, fontSize: 18),
+                        style: TextStyle(color: Colors.black, fontSize: 16),
                       ),
                       onPressed: () {
                         setState(() {
                           _itemCount += 5;
                         });
-                        print(_itemCount);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xff99E2B4),

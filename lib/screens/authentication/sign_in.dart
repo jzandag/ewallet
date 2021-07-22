@@ -35,90 +35,99 @@ class _SignInState extends State<SignIn> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    height: 200,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage('assets/login-vector.png'))),
-                    )),
+                  height: 200,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage('assets/login-vector.png'),
+                      ),
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: Text(
                     'Hello, \nWelcome back',
                     style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 50),
                   child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                              decoration: textInputDecoration.copyWith(
-                                  hintText: 'Email'),
-                              onChanged: (val) {
-                                setState(() => email = val);
-                              },
-                              validator: (val) {
-                                return val!.isEmpty ? 'Enter an email' : null;
-                              },
-                              style: textStyle),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            decoration: textInputDecoration.copyWith(
-                                hintText: 'Password'),
-                            obscureText: true,
-                            onChanged: (val) {
-                              setState(() => password = val);
-                            },
-                            style: textStyle,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          RaisedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() => loading = true);
-                                dynamic result = await _authService
-                                    .signInUsingEmailAndPassword(
-                                        email, password);
-                                if (result == null) {
-                                  setState(() {
-                                    error =
-                                        'Failed to sign in using email/password.';
-                                    loading = false;
-                                  });
-                                }
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          decoration:
+                              textInputDecoration.copyWith(hintText: 'Email'),
+                          onChanged: (val) {
+                            setState(() => email = val);
+                          },
+                          validator: (val) {
+                            return val!.isEmpty ? 'Enter an email' : null;
+                          },
+                          style: textStyle,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          decoration: textInputDecoration.copyWith(
+                              hintText: 'Password'),
+                          obscureText: true,
+                          onChanged: (val) {
+                            setState(() => password = val);
+                          },
+                          style: textStyle,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        RaisedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() => loading = true);
+                              dynamic result = await _authService
+                                  .signInUsingEmailAndPassword(email, password);
+                              if (result == null) {
+                                setState(() {
+                                  error =
+                                      'Failed to sign in using email/password.';
+                                  loading = false;
+                                });
                               }
-                            },
-                            color: Color(0xff99E2B4),
-                            child: Text(
-                              'Sign in',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600),
+                            }
+                          },
+                          color: Color(0xff99E2B4),
+                          child: Text(
+                            'Sign in',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                          SizedBox(
-                            height: 4,
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          error,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14,
                           ),
-                          Text(
-                            error,
-                            style: TextStyle(color: Colors.red, fontSize: 14),
-                          )
-                        ],
-                      )),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
                 Center(
                     child: Text(
@@ -127,15 +136,18 @@ class _SignInState extends State<SignIn> {
                 )),
                 Center(
                   child: RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
                           text: 'Register here',
                           style: linkStyle,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               widget.toggleView!();
-                            }),
-                    ]),
+                            },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

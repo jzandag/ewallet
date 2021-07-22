@@ -20,9 +20,11 @@ class _TransactionFormState extends State<TransactionForm> {
   String? _currentType = 'expense';
   double? _currentAmount;
   String _error = '';
+  DateTime _currentDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+
     final UserModel? user = Provider.of<UserModel?>(context);
 
     final UserData? userData = Provider.of<UserData?>(context);
@@ -31,7 +33,6 @@ class _TransactionFormState extends State<TransactionForm> {
     final DatabaseService _databaseService =
         DatabaseService(uid: user!.uid, balance: userData.balance);
 
-    DateTime _currentDate = DateTime.now();
     Future<void> _selectDate(BuildContext context) async {
       final DateTime? picked = await showDatePicker(
           context: context,
@@ -55,8 +56,9 @@ class _TransactionFormState extends State<TransactionForm> {
             ),
             TextFormField(
               decoration: textInputDecoration.copyWith(
-                  hintText: 'Description...',
-                  hintStyle: TextStyle(color: Colors.black38)),
+                hintText: 'Description...',
+                hintStyle: TextStyle(color: Colors.black38),
+              ),
               validator: (val) =>
                   val!.isEmpty ? 'Please enter description' : null,
               onChanged: (val) => setState(() => _currentDescription = val),
@@ -76,8 +78,9 @@ class _TransactionFormState extends State<TransactionForm> {
             TextFormField(
               keyboardType: TextInputType.number,
               decoration: textInputDecoration.copyWith(
-                  hintText: 'Amount...',
-                  hintStyle: TextStyle(color: Colors.black38)),
+                hintText: 'Amount...',
+                hintStyle: TextStyle(color: Colors.black38),
+              ),
               validator: (val) => val!.isEmpty ? 'Please enter amount' : null,
               onChanged: (val) =>
                   setState(() => _currentAmount = double.parse(val)),
@@ -113,10 +116,6 @@ class _TransactionFormState extends State<TransactionForm> {
                       amount: _currentAmount,
                       date: _currentDate,
                       type: _currentType);
-                  print(_currentDescription);
-                  print("amount" + _currentAmount.toString());
-                  print(_currentDate);
-                  print(userData.balance);
                   if (_currentType == 'expense' &&
                       _currentAmount! > userData.balance!) {
                     setState(() {
@@ -140,7 +139,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   )
                 : Container(
                     child: Text(_error),
-                  )
+                  ),
           ],
         ),
       ),

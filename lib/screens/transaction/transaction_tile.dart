@@ -46,6 +46,13 @@ class TransactionTile extends StatelessWidget {
                       Text(
                         '${transaction!.description}',
                         style: textStyle,
+                      ),
+                      Text(
+                        '${DateFormat('MMMM dd, yyyy').format(transaction!.date!)}',
+                        style: textStyle.copyWith(
+                          color: Color(0xffdddddd),
+                          fontSize: 10,
+                        ),
                       )
                     ],
                   ),
@@ -63,7 +70,10 @@ class TransactionTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: Color(0xff036666),
         boxShadow: [
-          BoxShadow(color: Color(0xff036666), spreadRadius: 3),
+          BoxShadow(
+            color: Color(0xff036666),
+            spreadRadius: 3,
+          ),
         ],
       ),
     );

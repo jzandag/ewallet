@@ -6,10 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class MonthlyBarChart extends StatelessWidget {
-  // final List<DataSeries> data;
-  //
-  // MonthlyBarChart({required this.data});
-
   @override
   Widget build(BuildContext context) {
     final UserData? userData = Provider.of<UserData?>(context);
@@ -35,7 +31,7 @@ class MonthlyBarChart extends StatelessWidget {
       DataSeries(amount: income, type: 'income'),
       DataSeries(amount: expense, type: 'expense'),
     ];
-    print(income);
+
     List<charts.Series<DataSeries, String>> series = [
       charts.Series(
         id: "Data",

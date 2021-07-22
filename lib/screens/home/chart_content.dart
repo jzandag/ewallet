@@ -26,7 +26,9 @@ class _ChartContentState extends State<ChartContent> {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
             ),
           ),
-          Center(child: MonthlyBarChart()),
+          Center(
+            child: MonthlyBarChart(),
+          ),
         ],
       ),
     );

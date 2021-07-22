@@ -60,7 +60,9 @@ class Home extends StatelessWidget {
                         child: Text(
                           'Latest Transactions',
                           style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 18),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                       TransactionList(
